@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhouwudi.pmpsystem.Mapper.EmpMapper">
+    <select id="queryEmpList"  resultType="com.zhouwudi.pmpsystem.Model.Employee">
+        select empId,empName,deptName,joinProNums
+        from employee
+    </select>
+    <select id="queryProjectDetails" resultType="com.zhouwudi.pmpsystem.Model.ProjectsDetails">
+        select proId,proName,proBoss,FinishValue,xyCbValue,invesValue,startTime,endTime,prepayDate,proIncome,proInves
+        from projectsDetails
+    </select>
+    <select id="getProjectInfo" resultType="com.zhouwudi.pmpsystem.Model.ProjectsDetails">
+        select proName,proBoss,FinishValue,startTime,proIncome,proInves
+        from projectsDetails
+    </select>
+</mapper>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon"  href="img/logo.png"/>
+    <title>PMP项目管理系统</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/mmss.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+
+    </style>
+</head>
+<body>
+<!--左侧导航开始-->
+<div th:fragment="leftMenu">
+<div class="col-xs-2 bg-blue">
+    <br/>
+    <div class="panel-group sidebar-menu" id="accordion" aria-multiselectable="true">
+        <div class="panel panel-default menu-first menu-first-active">
+            <a data-toggle="collapse" data-parent="#accordion" href="index.html" aria-expanded="true"
+               aria-controls="collapseOne">
+                <i class="icon-home icon-large"></i> 主页
+            </a>
+        </div>
+        <div class="panel panel-default menu-first">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+               aria-controls="collapseOne">
+                <i class="icon-github icon-large"></i>项目信息管理</a>
+            </a>
+
+            <div id="collapseOne" class="panel-collapse collapse " >
+                <ul class="nav nav-list menu-second">
+                    <li><a href="p5Test"><i class="icon-desktop"></i>项目明细</a></li>
+                    <li><a href="p2"><i class="icon-bar-chart"></i> 数据分析</a></li>
+                    <li><a href="p3"><i class="icon-trash"></i> p3</a></li>
+                    <li><a href="#"><i class="icon-list"></i> 子选项4</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-default menu-first">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+               aria-expanded="false" aria-controls="collapseTwo">
+                <i class="icon-book icon-large"></i> 用户管理</a>
+            </a>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <ul class="nav nav-list menu-second">
+                    <li><a href="#"><i class="icon-user"></i> 子选项1</a></li>
+                    <li><a href="#"><i class="icon-edit"></i> 子选项2</a></li>
+                    <li><a href="#"><i class="icon-trash"></i> 子选项3</a></li>
+                    <li><a href="#"><i class="icon-list"></i> 子选项4</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel panel-default menu-first">
+            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+               aria-expanded="false" aria-controls="collapseThree">
+                <i class="icon-book icon-large"></i> 其他管理</a>
+            </a>
+
+            <div id="collapseThree" class="panel-collapse collapse">
+                <ul class="nav nav-list menu-second">
+                    <li><a href="#"><i class="icon-user"></i> 子选项1</a></li>
+                    <li><a href="#"><i class="icon-edit"></i> 子选项2</a></li>
+                    <li><a href="#"><i class="icon-trash"></i> 子选项3</a></li>
+                    <li><a href="#"><i class="icon-list"></i> 子选项4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

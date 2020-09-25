@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>项目明细分析</title>
+    <link rel="icon" href="img/logo.png"/>
+    <!-- 核心 css -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- 引入bootstrap-table样式 -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+
+    <!-- jquery及bootstrapjs -->
+    <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <!-- bootstrap-table.min.js -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <link rel="stylesheet" href="css/mmss.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
+    <!-- 引入中文语言包 -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/extensions/export/bootstrap-table-export.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/extensions/editable/bootstrap-table-editable.js"></script>
+
+</head>
+<body>
+<style>
+     .container{
+         padding-right:15px;
+         padding-left:15px;
+         margin-right:auto;
+         margin-left:30px;
+     }
+</style>
+<div th:replace="header :: header"></div>
+<section>
+    <div class="container-fluid">
+        <div class="row ">
+<!--左侧导航开始-->
+<div th:replace="leftMenu :: leftMenu"></div>
+   <!--左侧导航结束-->
+   <!----------------------------------------------------------------------------------------------------->
+   <!--右侧内容开始-->
+
+  <div class="col-xs-10">
+      <br/>
+      <ol class="breadcrumb">
+          <li><a href="index"><span class="glyphicon glyphicon-book"></span>&nbsp;后台首页</a></li>
+          <li class="active">项目明细分析-数据表格</li>
+      </ol>
+    <div class="container">
+    <!-- 如果有条件，查询表单ID名必须为condition-form -->
+     <form id="condition-form">
+        项目名称<input name="proName" value="">启动时间<input name="startTimes"
+                                                  value="2020-9-24"> <input type="button" value="搜索"></form>
+    <div id="toolbar">
+        <button id="remove" class="btn btn-danger">
+            <i class="glyphicon glyphicon-remove"></i> Delete
+        </button>
+        <button id="add" class="btn btn-primary">
+            <i class="glyphicon glyphicon-ok"></i> Insert
+        </button>
+    </div>
+    <!-- 加载bootstraptable的表格，ID名称必须为bootstrap-table -->
+    <table id="bootstrap-table">
+        <thead>
+        <tr>
+            <th data-field="state" data-checkbox="true"></th>
+            <th data-field="proName" data-sortable="true">项目名称</th>
+            <th data-field="finishValue" data-sortable="true">项目进度</th>
+            <th data-field="startTime">启动时间</th>
+            <th data-field="proIncome">投入总额</th>
+            <th data-field="proInves">收益总计</th>
+        </tr>
+        </thead>
+    </table>
+  </div>
+            </div>
+       </div>
+    </div>
+</section>
+<!--引入尾部footer-->
+<div th:replace=footer::footer></div>
+<script>
+    $("input[type='button']").click(function() {
+        $("#bootstrap-table").bootstrapTable("refresh")
+    });
+
+    //bootstrap-table初始化
+    $("#bootstrap-table").bootstrapTable({
+        url : "getProjectInfo", //请求后台的URL（*）
+        dataType:"json",
+// 此间是与client不一样的地方=======================开始
+        contentType : "application/x-www-form-urlencoded",
+        sidePagination : "server", //分页方式：client客户端分页，server服务端分页（*）
+//修改请求参数，不设置则有默认值 ，返回值必须是一个对象
+        method : 'POST', //请求方式（*）
+        toolbar : '#toolbar', //工具按钮用哪个容器
+        search : true, //是否显示表格搜索
+        showFooter : false, //显示底部，默认不显示
+        sortName : 'name',
+        sortOrder : "asc", //排序方式
+// 此间是与client不一样的地方=======================结束
+
+        striped : true, //是否显示行间隔色
+        cache : false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination : true, //是否显示分页（*）
+        showPaginationSwitch : true, //显示切换分页
+
+        showFullscreen : false, //显示全屏
+        showHeader : true, //显示头部，默认显示
+        showExport : true, //显示导出
+        showColumns : true, //是否显示所有的列（选择显示的列）
+        showRefresh : true, //是否显示刷新按钮
+        sortable : true, //是否启用排序
+        pageNumber : 0, //初始化加载第一页，默认第一页,并记录
+        pageSize : 3, //每页的记录行数（*）
+        pageList : [ 3, 6, 10 ], //可供选择的每页的行数（*）
+        queryParams: queryParam,
+        strictSearch : true,
+        minimumCountColumns : 2, //最少允许的列数
+        clickToSelect : true, //是否启用点击选中行
+        uniqueId : "proName", //每一行的唯一标识，一般为主键列
+        showToggle : true, //是否显示详细视图和列表视图的切换按钮
+        cardView : false, //是否显示详细视图
+        detailView : false, //是否显示父子表
+    });
+    function queryParam(params){
+        var param = {
+            limit : this.limit, // 页面大小
+            offset : this.offset, // 页码
+            pageNumber : this.pageNumber,
+            pageSize : this.pageSize
+        };
+        return param;
+    }
+</script>
+</body>
+</html>
